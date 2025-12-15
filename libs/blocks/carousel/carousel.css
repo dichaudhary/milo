@@ -54,8 +54,8 @@
   align-self: center;
   justify-content: space-between;
   background: var(--carousel-nav-background);
-  border-radius: 25px;
-  padding: 4px;
+  border-radius: 20px;
+  padding: 4px 18px;
   order: 3;
   width: max-content;
   min-width: 114px;
@@ -254,34 +254,53 @@ html[dir="rtl"] .carousel .move-indicators {
   align-items: center;
   justify-content: center;
   flex: 0 1 auto;
-  height: 8px;
-  width: 8px;
+  height: 6px;
+  width: 6px;
+  background-color: rgb(177, 177, 177);
+  border-radius: 50%;
+  border: none;
 }
 
 .carousel .carousel-indicator::after {
   content: '';
-  background-color: var(--carousel-indicator-background-color);
+  background-color: transparent;
   border-radius: 50%;
-  height: 6px;
-  width: 6px;
-  transition: height 1s cubic-bezier(0.23, 1, 0.32, 1), background 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  height: 100%;
+  width: 100%;
+  transition: background 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.dark .carousel .carousel-indicator,
+.carousel.dark .carousel-indicator {
+  background-color: var(--carousel-dark-indicator-background-color);
 }
 
 .dark .carousel .carousel-indicator::after,
 .carousel.dark .carousel-indicator::after {
-  background-color: var(--carousel-dark-indicator-background-color);
+  background-color: transparent;
+}
+
+.carousel .carousel-indicator.active {
+  height: 8px;
+  width: 8px;
+  background-color: rgb(255, 255, 255);
 }
 
 .carousel .carousel-indicator.active::after {
   content: '';
-  background-color: var(--color-white);
-  height: inherit;
-  width: inherit;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+}
+
+.dark .carousel .carousel-indicator.active,
+.carousel.dark .carousel-indicator.active {
+  background-color: var(--carousel-nav-background);
 }
 
 .dark .carousel .carousel-indicator.active::after,
 .carousel.dark .carousel-indicator.active::after {
-  background-color: var(--carousel-nav-background);
+  background-color: transparent;
 }
 
 /* Lightbox */
