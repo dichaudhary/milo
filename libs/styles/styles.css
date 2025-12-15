@@ -39,9 +39,29 @@
   --color-info-accent-down: #3D3DB4;
   --color-info-accent-light: #DEDEF9;
 
+  /* Additional Colors (from website implementation) */
+  --color-gray-45: rgb(45, 45, 45);
+  --color-blue-primary: rgb(39, 77, 234);
+  --color-red-primary: rgb(235, 16, 0);
+  --color-gray-41: rgb(41, 41, 41);
+  --color-white-rgb: rgb(255, 255, 255);
+  --color-gray-44: rgb(44, 44, 44);
+  --color-black-rgb: rgb(0, 0, 0);
+  --color-gray-34: rgb(34, 34, 34);
+  --color-gray-80: rgb(80, 80, 80);
+
   /* Fonts */
   --body-font-family: 'Adobe Clean', adobe-clean, 'Trebuchet MS', sans-serif;
+  --serif-font-family: 'Adobe Clean Serif', 'Adobe Clean', adobe-clean, 'Georgia', serif;
+  --alternate-font-family: 'Inter', 'Adobe Clean', adobe-clean, sans-serif;
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
   /* Spacing */
   --spacing-xxs: 8px;
@@ -108,6 +128,13 @@
   --type-detail-m-lh: 15px;
   --type-detail-s-size: calc(var(--font-size-multiplier, 1) * 10px);
   --type-detail-s-lh: 12px;
+
+  /* Additional Font Sizes from Figma */
+  --type-size-10: calc(var(--font-size-multiplier, 1) * 10px);
+  --type-size-11: calc(var(--font-size-multiplier, 1) * 11px);
+  --type-size-22: calc(var(--font-size-multiplier, 1) * 22px);
+  --type-size-24: calc(var(--font-size-multiplier, 1) * 24px);
+  --type-size-27: calc(var(--font-size-multiplier, 1) * 27px);
 
   /* grid sizes */
   --grid-container-width: 83.4%;
@@ -1116,4 +1143,59 @@ a.static:active  {
 /* desktop large < 1440 */
 @media screen and (min-width: 1440px) {
   .con-block.max-width-12-desktop-large .foreground { max-width: 1200px; }
+}
+
+/* Font Family Utilities */
+.font-serif {
+  font-family: var(--serif-font-family);
+}
+
+.font-alternate {
+  font-family: var(--alternate-font-family);
+}
+
+.font-body {
+  font-family: var(--body-font-family);
+}
+
+/* Font Weight Utilities */
+.font-light {
+  font-weight: var(--font-weight-light);
+}
+
+.font-normal {
+  font-weight: var(--font-weight-normal);
+}
+
+.font-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+/* Additional Font Size Utilities */
+.text-size-10 {
+  font-size: var(--type-size-10);
+}
+
+.text-size-11 {
+  font-size: var(--type-size-11);
+}
+
+.text-size-22 {
+  font-size: var(--type-size-22);
+}
+
+.text-size-24 {
+  font-size: var(--type-size-24);
+}
+
+.text-size-27 {
+  font-size: var(--type-size-27);
 }
