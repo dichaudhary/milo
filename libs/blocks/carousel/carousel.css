@@ -11,7 +11,7 @@
   --carousel-nav-button-hover-background-dark: #2f2f2f;
   --carousel-nav-button-active-background-dark: #373737;
   --carousel-focus-color: #109cde;
-  --carousel-indicator-background-color: var(--color-gray-400);
+  --carousel-indicator-background-color: rgb(177, 177, 177);
   --carousel-dark-indicator-background-color: #848484;
   --carousel-expand-background-color: rgb(255 255 255 / 75%);
   --carousel-expand-border-color: rgb(116 116 116 / 30%);
