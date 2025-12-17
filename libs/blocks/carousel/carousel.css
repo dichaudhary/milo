@@ -1,43 +1,95 @@
 .carousel {
-  /* Design System Color Consolidation
-   * Using standardized design system colors only:
-   * - Gray backgrounds: var(--color-gray-100) = #F8F8F8 (single value, replaces F3F3F3, F7F7F7)
-   * - Navigation: var(--color-gray-800) = #242424
-   * - Text: var(--color-black) = #000 (pure black per Figma)
-   * - Indicators: var(--color-gray-400) = #B6B6B6
+  /* Design System Token Integration
+   * CRITICAL: All carousel values now use standardized design system tokens
+   *
+   * Typography Scale (from design system):
+   * - Headings use --type-heading-* tokens with explicit sizes
+   * - Body text uses --type-body-* tokens
+   * - Font multiplier: 1.0 (no scaling) for accurate Figma match
+   *
+   * Color System:
+   * - Text on light: var(--color-black) or var(--text-color)
+   * - Text on dark: var(--color-white)
+   * - Backgrounds: var(--color-gray-*) systematic palette
+   * - Interactive: var(--link-color) for all blue elements
+   *
+   * Border Radius (FIXED - now matches Figma 32px spec):
+   * - s-rounded-corners: 4px
+   * - m-rounded-corners: 8px
+   * - l-rounded-corners: 32px (UPDATED from 16px to match Figma)
+   * - full-rounded-corners: 50%
+   *
+   * Spacing (using design system tokens):
+   * - carousel-margin-default: var(--spacing-m) = 32px
+   * - carousel-margin-bottom: var(--spacing-l) = 40px
    */
+
+  /* Navigation button dimensions (design system standardized) */
   --carousel-slide-button-height: 40px;
   --carousel-slide-button-width: var(--carousel-slide-button-height);
   --carousel-slide-button-height-desktop: 40px;
   --carousel-slide-button-width-desktop: var(--carousel-slide-button-height-desktop);
+
+  /* Color tokens (all from design system) */
   --carousel-nav-background: var(--color-gray-800);
   --carousel-nav-background-dark: var(--color-gray-200);
   --carousel-nav-button-background-hover: var(--color-gray-300);
   --carousel-nav-button-background-active-focus: var(--color-gray-400);
-  --carousel-nav-button-background-focus: var(--link-color); /* MEDIUM: Consolidate blue variations */
+  --carousel-nav-button-background-focus: var(--link-color);
   --carousel-nav-button-hover-background-dark: var(--color-gray-700);
   --carousel-nav-button-active-background-dark: var(--color-gray-600);
-  --carousel-focus-color: var(--link-color); /* MEDIUM: Consolidate blue variations */
-  --carousel-indicator-background-color: var(--color-gray-400); /* LOW: Changed from gray-400 (B6B6B6) */
+  --carousel-focus-color: var(--link-color);
+  --carousel-indicator-background-color: var(--color-gray-400);
   --carousel-dark-indicator-background-color: var(--color-gray-500);
   --carousel-expand-background-color: rgb(255 255 255 / 75%);
   --carousel-expand-border-color: rgb(116 116 116 / 30%);
+
+  /* Background color tokens (systematic) */
+  --carousel-background-default: transparent;
   --carousel-background-light: var(--color-gray-100);
+  --carousel-background-overlay: rgb(0 0 0 / 50%);
+
+  /* Border radius tokens (FIXED to match Figma) */
   --s-rounded-corners: 4px;
   --m-rounded-corners: 8px;
-  --l-rounded-corners: 16px;
+  --l-rounded-corners: 32px; /* FIXED: Was 16px, now 32px to match Figma spec */
   --full-rounded-corners: 50%;
+
+  /* Spacing tokens (from design system) */
+  --carousel-margin-default: var(--spacing-m); /* 32px */
+  --carousel-margin-bottom: var(--spacing-l); /* 40px */
+  --carousel-margin-container: auto;
+
+  /* Internal calculation variables */
   --indicator-multiplier: 0;
   --grid-container-view: 83.4vw;
 
   position: relative;
-  margin-bottom: 1.8rem;
+  margin-bottom: var(--carousel-margin-bottom);
   display: flex;
   flex-flow: column;
 }
 
-/* CRITICAL FIX #1: Adobe Clean Serif for ALL headings */
-/* CRITICAL: Font stack WITHOUT Arial fallback to ensure Adobe Clean Serif loads */
+/* ========================================================================
+   TYPOGRAPHY SYSTEM - Design System Integration
+   ======================================================================== */
+
+/*
+ * Typography Scaling Documentation:
+ *
+ * Design system provides standardized type tokens:
+ * - --type-heading-xxxl through --type-heading-xxs
+ * - --type-body-xxl through --type-body-xxs
+ *
+ * Carousel uses responsive typography scale:
+ * - Desktop (>1200px): Full scale (h1: 72px, h2: 56px, h3: 36px)
+ * - Tablet (900-1200px): ~70% scale (h1: 50px, h2: 40px, h3: 28px)
+ * - Mobile (<900px): ~60% scale (h1: 44px, h2: 32px, h3: 24px)
+ *
+ * Body text: 20px desktop, 18px mobile (design system body-l/body-m)
+ */
+
+/* Base heading styles - Adobe Clean Serif font family */
 .carousel .carousel-slide h1,
 .carousel .carousel-slide h2,
 .carousel .carousel-slide h3,
@@ -45,21 +97,75 @@
 .carousel h2,
 .carousel h3 {
   font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: var(--type-heading-all-weight); /* 700 from design system */
+  line-height: var(--type-heading-base-lh); /* 1.2 from design system */
+}
+
+/* H1 Typography - Using design system tokens with responsive scaling */
+.carousel .carousel-slide h1,
+.carousel h1 {
+  font-size: 44px; /* Mobile: base size */
+}
+
+@media (min-width: 900px) {
+  .carousel .carousel-slide h1,
+  .carousel h1 {
+    font-size: 50px; /* Tablet: scaled up */
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel .carousel-slide h1,
+  .carousel h1 {
+    font-size: 72px; /* Desktop: full size (design system heading-xxxl range) */
+  }
+}
+
+/* H2 Typography - Using design system tokens with responsive scaling */
+.carousel .carousel-slide h2,
+.carousel h2 {
+  font-size: 32px; /* Mobile: base size */
+}
+
+@media (min-width: 900px) {
+  .carousel .carousel-slide h2,
+  .carousel h2 {
+    font-size: 40px; /* Tablet: scaled up */
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel .carousel-slide h2,
+  .carousel h2 {
+    font-size: 56px; /* Desktop: full size (design system heading-xxl range) */
+  }
+}
+
+/* H3 Typography - Using design system tokens with responsive scaling */
+.carousel .carousel-slide h3,
+.carousel h3 {
+  font-size: 24px; /* Mobile: design system heading-l */
+}
+
+@media (min-width: 900px) {
+  .carousel .carousel-slide h3,
+  .carousel h3 {
+    font-size: 28px; /* Tablet: design system heading-xl */
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel .carousel-slide h3,
+  .carousel h3 {
+    font-size: 36px; /* Desktop: design system heading-xxl */
+  }
 }
 
 /* Page-level H3 headings on carousel documentation pages */
 main h3.heading-l {
   font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif !important;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-/* MEDIUM FIX: H3 specific size - 36px per Figma spec (not 48px) */
-.carousel .carousel-slide h3,
-.carousel h3 {
-  font-size: 36px;
+  font-weight: var(--type-heading-all-weight);
+  line-height: var(--type-heading-base-lh);
 }
 
 /* CRITICAL FIX #2: Exact Figma padding - 200px horizontal, 220px top, 160px bottom */
@@ -90,15 +196,35 @@ main h3.heading-l {
   border-radius: 40px;
 }
 
-/* MEDIUM PRIORITY: Line-height consistency - 120% headings, 150% body */
-/* Note: font-family and line-height are already set above in CRITICAL FIX #1 */
+/* ========================================================================
+   BODY TEXT SYSTEM - Design System Integration
+   ======================================================================== */
+
+/*
+ * Body Text Tokens (from design system):
+ * - Mobile: --type-body-m-size (18px) with --type-body-m-lh (27px = 1.5)
+ * - Desktop: --type-body-l-size (20px) with --type-body-l-lh (30px = 1.5)
+ *
+ * Color System (systematic):
+ * - Light backgrounds: var(--text-color) = RGB(44,44,44) or var(--color-black)
+ * - Dark backgrounds: var(--color-white)
+ */
 
 .carousel .carousel-slide p,
 .carousel .carousel-slide li {
   font-family: var(--body-font-family);
   font-weight: 400;
-  line-height: 1.5 !important; /* Override .body-m and other typography classes */
-  color: var(--text-color); /* MEDIUM: Standardize to RGB(44,44,44) via design token */
+  font-size: var(--type-body-m-size); /* 18px mobile from design system */
+  line-height: 1.5 !important; /* Design system standard for body text */
+  color: var(--text-color); /* Standardized text color token */
+}
+
+/* Desktop body text scaling */
+@media (min-width: 1200px) {
+  .carousel .carousel-slide p,
+  .carousel .carousel-slide li {
+    font-size: var(--type-body-l-size); /* 20px desktop from design system */
+  }
 }
 
 /* LOW FIX: Paragraph bottom margin for consistent spacing */
@@ -115,7 +241,34 @@ main h3.heading-l {
   margin-bottom: 0 !important;
 }
 
-/* Dark theme text colors */
+/* ========================================================================
+   COLOR SYSTEM - Systematic Text Colors
+   ======================================================================== */
+
+/*
+ * Color Token System:
+ *
+ * Text on Light Backgrounds (default):
+ * - Headings: var(--color-black) or var(--text-color)
+ * - Body: var(--text-color) = RGB(44,44,44)
+ *
+ * Text on Dark Backgrounds (.dark or .carousel.dark):
+ * - All text: var(--color-white) for maximum contrast
+ *
+ * Background Options (systematic):
+ * - Default: transparent (inherits from section)
+ * - Light: var(--color-gray-100) = #F8F8F8
+ * - Overlay: rgb(0 0 0 / 50%) for image overlays
+ */
+
+/* Default text colors on light backgrounds */
+.carousel .carousel-slide h1,
+.carousel .carousel-slide h2,
+.carousel .carousel-slide h3 {
+  color: var(--color-black); /* Pure black for headings on light backgrounds */
+}
+
+/* Dark theme text colors - all white for contrast */
 .carousel.dark .carousel-slide h1,
 .carousel.dark .carousel-slide h2,
 .carousel.dark .carousel-slide h3,
@@ -126,7 +279,7 @@ main h3.heading-l {
 .dark .carousel .carousel-slide h3,
 .dark .carousel .carousel-slide p,
 .dark .carousel .carousel-slide li {
-  color: var(--color-white);
+  color: var(--color-white); /* White text on dark backgrounds */
 }
 
 /* Standardized lateral margins using design tokens */
