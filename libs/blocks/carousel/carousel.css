@@ -666,8 +666,12 @@ html[dir="rtl"] .carousel .move-indicators {
     width: var(--carousel-slide-button-width-desktop);
   }
 
-  .carousel[class*='hinting'] .carousel-slides {
+  .carousel[class*='hinting']:not(.m-gap) .carousel-slides {
     gap: var(--spacing-xs);
+  }
+
+  .carousel[class*='hinting'].m-gap .carousel-slides {
+    gap: var(--spacing-m);
   }
 
   .carousel.hinting-mobile .carousel-slides {
