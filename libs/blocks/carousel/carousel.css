@@ -50,8 +50,9 @@
 }
 
 /* Page-level H3 headings on carousel documentation pages */
-main > div > h3 {
-  font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif;
+main > div > h3,
+main > div > h3.heading-l {
+  font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif !important;
   font-weight: 700;
   line-height: 1.2;
 }
