@@ -90,17 +90,22 @@
 .carousel .carousel-slide li {
   font-family: var(--body-font-family);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.5 !important; /* Override .body-m and other typography classes */
   color: var(--text-color); /* MEDIUM: Standardize to RGB(44,44,44) via design token */
 }
 
 /* LOW FIX: Paragraph bottom margin for consistent spacing */
-.carousel .carousel-slide p {
-  margin-bottom: 16px;
+/* Higher specificity to override .brick .foreground p and other block styles */
+.carousel .carousel-slide p,
+.carousel .carousel-slide .brick .foreground p,
+.carousel .carousel-slide .foreground p {
+  margin-bottom: 16px !important;
 }
 
-.carousel .carousel-slide p:last-child {
-  margin-bottom: 0;
+.carousel .carousel-slide p:last-child,
+.carousel .carousel-slide .brick .foreground p:last-child,
+.carousel .carousel-slide .foreground p:last-child {
+  margin-bottom: 0 !important;
 }
 
 /* Dark theme text colors */
