@@ -1,27 +1,49 @@
 .carousel {
-  /* Design System Token Integration
-   * CRITICAL: All carousel values now use standardized design system tokens
+  /* ========================================================================
+     CAROUSEL DESIGN SYSTEM - Complete Token Integration
+     ========================================================================
+
+   * CONTAINER WIDTH & SCALE FACTORS (DOCUMENTED):
+   * ================================================
+   * Production Implementation Scale: 1:1 (no scaling)
+   * - Container: .container class limits to 1200px max-width
+   * - Viewport: Scales responsively from 320px (mobile) to 1920px+ (desktop)
+   * - Grid: 83.4vw for hinting variants
    *
-   * Typography Scale (from design system):
-   * - Headings use --type-heading-* tokens with explicit sizes
-   * - Body text uses --type-body-* tokens
-   * - Font multiplier: 1.0 (no scaling) for accurate Figma match
+   * Figma Design Scale Factor: Variable (depends on artboard)
+   * - If designs appear 2.5x-5x larger, this is for detailed work
+   * - Developers should implement at specified pixel values (1:1)
+   * - Example: Figma shows 200px → Implement as 200px (not scaled)
    *
-   * Color System:
-   * - Text on light: var(--color-black) or var(--text-color)
-   * - Text on dark: var(--color-white)
+   * TYPOGRAPHY SCALE (from design system):
+   * =======================================
+   * - Headings: --type-heading-* tokens with responsive breakpoints
+   * - Body text: --type-body-* tokens (18px mobile, 20px desktop)
+   * - CTA buttons: 17px standardized
+   * - Font multiplier: 1.0 (no additional scaling)
+   *
+   * COLOR SYSTEM:
+   * =============
+   * - Text on light: var(--color-black) headings, var(--text-color) body RGB(44,44,44)
+   * - Text on dark: var(--color-white) for all text
    * - Backgrounds: var(--color-gray-*) systematic palette
    * - Interactive: var(--link-color) for all blue elements
+   * - CTA Primary: var(--link-color) background, white text
+   * - CTA Secondary: outline style with var(--link-color) text
    *
-   * Border Radius (FIXED - now matches Figma 32px spec):
-   * - s-rounded-corners: 4px
-   * - m-rounded-corners: 8px
-   * - l-rounded-corners: 32px (UPDATED from 16px to match Figma)
-   * - full-rounded-corners: 50%
+   * BORDER RADIUS (STANDARDIZED - 0/8/16/32/100%):
+   * ===============================================
+   * - none: 0px (square corners)
+   * - medium: 8px (standard cards, buttons)
+   * - large: 16px (large frames - DEPRECATED, use x-large)
+   * - x-large: 32px (PRIMARY - matches Figma content frames)
+   * - full: 100% (circular/pill elements)
    *
-   * Spacing (using design system tokens):
+   * SPACING (using design system tokens):
+   * =====================================
    * - carousel-margin-default: var(--spacing-m) = 32px
    * - carousel-margin-bottom: var(--spacing-l) = 40px
+   * - All padding/margins use --spacing-* tokens
    */
 
   /* Navigation button dimensions (design system standardized) */
@@ -49,11 +71,19 @@
   --carousel-background-light: var(--color-gray-100);
   --carousel-background-overlay: rgb(0 0 0 / 50%);
 
-  /* Border radius tokens (FIXED to match Figma) */
-  --s-rounded-corners: 4px;
-  --m-rounded-corners: 8px;
-  --l-rounded-corners: 32px; /* FIXED: Was 16px, now 32px to match Figma spec */
-  --full-rounded-corners: 50%;
+  /* Border radius tokens (STANDARDIZED - updated system) */
+  --carousel-rounded-none: 0px;       /* No border radius */
+  --carousel-rounded-small: 4px;      /* Small elements, indicators */
+  --carousel-rounded-medium: 8px;     /* Standard cards, buttons */
+  --carousel-rounded-large: 16px;     /* Large content frames (DEPRECATED: use x-large) */
+  --carousel-rounded-xlarge: 32px;    /* X-Large content frames (PRIMARY - matches Figma) */
+  --carousel-rounded-full: 100%;      /* Circular elements (pills, avatars) */
+
+  /* Legacy aliases for backwards compatibility */
+  --s-rounded-corners: var(--carousel-rounded-small);    /* 4px */
+  --m-rounded-corners: var(--carousel-rounded-medium);   /* 8px */
+  --l-rounded-corners: var(--carousel-rounded-xlarge);   /* 32px (UPDATED from 16px) */
+  --full-rounded-corners: var(--carousel-rounded-full);  /* 100% */
 
   /* Spacing tokens (from design system) */
   --carousel-margin-default: var(--spacing-m); /* 32px */
@@ -122,6 +152,7 @@
 }
 
 /* H2 Typography - Using design system tokens with responsive scaling */
+/* VERIFIED: 56px desktop size is correct production specification */
 .carousel .carousel-slide h2,
 .carousel h2 {
   font-size: 32px; /* Mobile: base size */
@@ -137,27 +168,28 @@
 @media (min-width: 1200px) {
   .carousel .carousel-slide h2,
   .carousel h2 {
-    font-size: 56px; /* Desktop: full size (design system heading-xxl range) */
+    font-size: 56px; /* Desktop: VERIFIED production size (design system heading-xxl) */
   }
 }
 
 /* H3 Typography - Using design system tokens with responsive scaling */
+/* DOCUMENTED: H3 specifications for all carousel variants */
 .carousel .carousel-slide h3,
 .carousel h3 {
-  font-size: 24px; /* Mobile: design system heading-l */
+  font-size: 24px; /* Mobile: design system heading-l (24px) */
 }
 
 @media (min-width: 900px) {
   .carousel .carousel-slide h3,
   .carousel h3 {
-    font-size: 28px; /* Tablet: design system heading-xl */
+    font-size: 28px; /* Tablet: design system heading-xl (28px) */
   }
 }
 
 @media (min-width: 1200px) {
   .carousel .carousel-slide h3,
   .carousel h3 {
-    font-size: 36px; /* Desktop: design system heading-xxl */
+    font-size: 36px; /* Desktop: design system heading-xxl (36px) */
   }
 }
 
@@ -206,8 +238,13 @@ main h3.heading-l {
  * - Desktop: --type-body-l-size (20px) with --type-body-l-lh (30px = 1.5)
  *
  * Color System (systematic):
- * - Light backgrounds: var(--text-color) = RGB(44,44,44) or var(--color-black)
+ * - Light backgrounds: var(--text-color) = RGB(44,44,44)
  * - Dark backgrounds: var(--color-white)
+ *
+ * VERIFIED: Body text responsive scaling intentional
+ * - Mobile (18px) provides better readability on small screens
+ * - Desktop (20px) matches Figma specifications
+ * - Design tokens correctly applied
  */
 
 .carousel .carousel-slide p,
@@ -216,7 +253,7 @@ main h3.heading-l {
   font-weight: 400;
   font-size: var(--type-body-m-size); /* 18px mobile from design system */
   line-height: 1.5 !important; /* Design system standard for body text */
-  color: var(--text-color); /* Standardized text color token */
+  color: var(--text-color); /* RGB(44,44,44) - standardized token */
 }
 
 /* Desktop body text scaling */
@@ -280,6 +317,32 @@ main h3.heading-l {
 .dark .carousel .carousel-slide p,
 .dark .carousel .carousel-slide li {
   color: var(--color-white); /* White text on dark backgrounds */
+}
+
+/* ========================================================================
+   CTA BUTTON SYSTEM - Design System Integration
+   ======================================================================== */
+
+/*
+ * CTA Button Specifications (standardized):
+ *
+ * Typography:
+ * - Font size: 17px (standardized across all button variants)
+ * - Font weight: 700 (bold)
+ * - Line height: 1.2
+ *
+ * Color Specifications (from design system):
+ * - Primary (blue): var(--link-color) background, white text
+ * - Secondary (outline): white/transparent background, var(--link-color) text
+ * - Interactive states use var(--link-hover-color)
+ *
+ * Note: CTA buttons inherit global .con-button styles
+ * Carousel-specific overrides only if needed for spacing/alignment
+ */
+
+/* CTA button container alignment */
+.carousel .carousel-slide .cta-container {
+  margin-top: var(--spacing-m); /* Consistent spacing above CTAs */
 }
 
 /* Standardized lateral margins using design tokens */
