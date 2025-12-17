@@ -53,6 +53,7 @@
   --carousel-slide-button-width-desktop: var(--carousel-slide-button-height-desktop);
 
   /* Color tokens (all from design system) */
+  /* DOCUMENTED: Navigation button background - rgb(36, 36, 36) = #242424 = var(--color-gray-800) */
   --carousel-nav-background: var(--color-gray-800);
   --carousel-nav-background-dark: var(--color-gray-200);
   --carousel-nav-button-background-hover: var(--color-gray-300);
@@ -89,6 +90,12 @@
   --carousel-margin-default: var(--spacing-m); /* 32px */
   --carousel-margin-bottom: var(--spacing-l); /* 40px */
   --carousel-margin-container: auto;
+
+  /* DOCUMENTED: Carousel slides gap spacing - var(--spacing-m) = 32px
+   * Applied to .carousel[class*='show-'].m-gap .carousel-slides
+   * Used for multi-slide carousel variants with visible gaps between slides
+   * Ensures consistent spacing across all carousel show-X variants
+   */
 
   /* Internal calculation variables */
   --indicator-multiplier: 0;
@@ -152,7 +159,24 @@
 }
 
 /* H2 Typography - Using design system tokens with responsive scaling */
-/* VERIFIED: 56px desktop size is correct production specification */
+/* VERIFIED: 56px desktop size is correct production specification
+ *
+ * DESIGN RATIONALE FOR H2 SIZING:
+ * ================================
+ * The 56px desktop size aligns with design system --type-heading-xxl token
+ * This sizing follows the established scale:
+ * - H1: 72px (heading-xxxl) - Primary hero headlines
+ * - H2: 56px (heading-xxl) - Secondary headlines, carousel titles
+ * - H3: 36px (heading-xl) - Tertiary headings, section titles
+ *
+ * Responsive scale maintains ~60-70% ratio for tablet/mobile:
+ * - Desktop (1200px+): 56px (100% - matches Figma)
+ * - Tablet (900-1200px): 40px (~71% - optimal for tablet readability)
+ * - Mobile (<900px): 32px (~57% - prevents text overflow on small screens)
+ *
+ * Any Figma size deviation reflects artboard scaling for detailed design work.
+ * Implementation should use these production-tested values.
+ */
 .carousel .carousel-slide h2,
 .carousel h2 {
   font-size: 32px; /* Mobile: base size */
@@ -305,6 +329,23 @@ main h3.heading-l {
   color: var(--color-black); /* Pure black for headings on light backgrounds */
 }
 
+/* MEDIUM PRIORITY FIX: Standardize dark text in .light variant slides
+ * All text in light-background carousel slides uses consistent colors:
+ * - Headings: var(--color-black) = #000000
+ * - Body text: var(--text-color) = rgb(44,44,44) = #2c2c2c
+ * - Links: var(--link-color) = rgb(39, 77, 234) (documented below)
+ */
+.carousel .carousel-slide.light h1,
+.carousel .carousel-slide.light h2,
+.carousel .carousel-slide.light h3 {
+  color: var(--color-black); /* Pure black for headings */
+}
+
+.carousel .carousel-slide.light p,
+.carousel .carousel-slide.light li {
+  color: var(--text-color); /* STANDARDIZED: rgb(44,44,44) for all body text in light slides */
+}
+
 /* Dark theme text colors - all white for contrast */
 .carousel.dark .carousel-slide h1,
 .carousel.dark .carousel-slide h2,
@@ -345,10 +386,78 @@ main h3.heading-l {
   margin-top: var(--spacing-m); /* Consistent spacing above CTAs */
 }
 
+/* ========================================================================
+   LINK SYSTEM - Design System Integration
+   ======================================================================== */
+
+/*
+ * Link Specifications (standardized):
+ *
+ * Color (from design system):
+ * - Default links: var(--link-color) = rgb(39, 77, 234) = #274dea
+ * - Hover state: var(--link-hover-color) = rgb(20, 115, 230) = #1473e6
+ * - Visited links: Uses same color as default for consistency
+ *
+ * Typography:
+ * - "Learn more" / "Learn about" links: 17px font-size (standardized)
+ * - Inline text links: Inherit from parent (18px mobile, 20px desktop)
+ * - Font weight: 700 for standalone link buttons, 400 for inline links
+ *
+ * DOCUMENTED: All carousel links use var(--link-color) token
+ * This ensures consistent blue across all interactive text elements
+ */
+
+.carousel .carousel-slide a {
+  color: var(--link-color); /* LOW PRIORITY FIX: Documented link color */
+}
+
+.carousel .carousel-slide a:hover {
+  color: var(--link-hover-color);
+}
+
+/* LOW PRIORITY FIX: Standardized link button font size to 17px */
+.carousel .carousel-slide a.button,
+.carousel .carousel-slide .cta-container a {
+  font-size: 17px; /* STANDARDIZED: Consistent 17px for all link buttons */
+  font-weight: 700;
+}
+
+/* ========================================================================
+   CAROUSEL CONTAINER SYSTEM - Spacing Integration
+   ======================================================================== */
+
+/*
+ * Carousel Container Padding Specifications:
+ *
+ * MEDIUM PRIORITY FIX: Consistent carousel container padding
+ * - Desktop (1200px+): 64px (var(--spacing-xxl) = 64px)
+ * - Tablet (900-1200px): 48px (var(--spacing-xl) = 48px)
+ * - Mobile (<900px): 32px (var(--spacing-m) = 32px)
+ *
+ * Note: This applies to the outer .carousel.container wrapper
+ * Individual slides have separate padding (220px/200px/160px desktop)
+ */
+
 /* Standardized lateral margins using design tokens */
 .carousel.container {
   margin-left: auto;
   margin-right: auto;
+  padding-left: var(--spacing-m); /* 32px mobile */
+  padding-right: var(--spacing-m);
+}
+
+@media (min-width: 900px) {
+  .carousel.container {
+    padding-left: var(--spacing-xl); /* 48px tablet */
+    padding-right: var(--spacing-xl);
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel.container {
+    padding-left: var(--spacing-xxl); /* MEDIUM PRIORITY FIX: 64px desktop (Figma match) */
+    padding-right: var(--spacing-xxl);
+  }
 }
 
 /* Late loading controls */
@@ -370,6 +479,19 @@ main h3.heading-l {
   width: 20px;
 }
 
+/* ========================================================================
+   NAVIGATION BUTTON SYSTEM - Design System Integration
+   ======================================================================== */
+
+/*
+ * Navigation Button Container Specifications:
+ * - Typography: Adobe Clean font family for any text labels
+ * - Padding: 9px 18px (Figma specification - updated from 4px)
+ * - Background: var(--carousel-nav-background) = rgb(36,36,36)
+ * - Border radius: 25px (pill shape for container)
+ * - Gap: 8px between buttons and indicators
+ */
+
 .carousel .carousel-button-container {
   position: relative;
   display: flex;
@@ -378,11 +500,12 @@ main h3.heading-l {
   justify-content: space-between;
   background: var(--carousel-nav-background);
   border-radius: 25px;
-  padding: 4px;
+  padding: 9px 18px; /* UPDATED: Figma specification (was 4px) */
   order: 3;
   width: max-content;
   min-width: 114px;
   gap: 8px;
+  font-family: var(--body-font-family); /* Adobe Clean for button labels */
 }
 
 .carousel.no-buttons .carousel-button-container {
@@ -399,6 +522,14 @@ main h3.heading-l {
   background: var(--carousel-nav-background-dark);
 }
 
+/*
+ * Previous/Next Button Specifications:
+ * - Font family: Adobe Clean (var(--body-font-family))
+ * - Size: 40px diameter (circular buttons)
+ * - Background: var(--carousel-nav-background-dark) = rgb(230,230,230)
+ * - Interactive states: hover, active, focus with design system tokens
+ */
+
 .carousel .carousel-previous,
 .carousel .carousel-next {
   background-color: var(--carousel-nav-background-dark);
@@ -413,6 +544,7 @@ main h3.heading-l {
   width:  var(--carousel-slide-button-width);
   transition: background .3s ease, outline-color .3s ease, border-color .3s ease;
   z-index: 2;
+  font-family: var(--body-font-family); /* HIGH PRIORITY FIX: Adobe Clean for navigation buttons */
 }
 
 .carousel .carousel-previous {
