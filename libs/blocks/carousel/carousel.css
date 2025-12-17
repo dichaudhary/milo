@@ -49,6 +49,13 @@
   line-height: 1.2;
 }
 
+/* Page-level H3 headings on carousel documentation pages */
+main > div > h3 {
+  font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 /* MEDIUM FIX: H3 specific size - 36px per Figma spec (not 48px) */
 .carousel .carousel-slide h3,
 .carousel h3 {
