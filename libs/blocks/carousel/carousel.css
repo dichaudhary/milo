@@ -1,20 +1,28 @@
 .carousel {
+  /* Design System Color Consolidation
+   * Using standardized design system colors only:
+   * - Gray backgrounds: var(--color-gray-100) = #F8F8F8 (single value, replaces F3F3F3, F7F7F7)
+   * - Navigation: var(--color-gray-800) = #242424
+   * - Text: var(--color-black) = #000 (pure black per Figma)
+   * - Indicators: var(--color-gray-400) = #B6B6B6
+   */
   --carousel-slide-button-height: 40px;
   --carousel-slide-button-width: var(--carousel-slide-button-height);
   --carousel-slide-button-height-desktop: 40px;
   --carousel-slide-button-width-desktop: var(--carousel-slide-button-height-desktop);
-  --carousel-nav-background: #242424;
-  --carousel-nav-background-dark: #e6e6e6;
-  --carousel-nav-button-background-hover: #d5d5d5;
-  --carousel-nav-button-background-active-focus: #b1b1b1;
-  --carousel-nav-button-background-focus: #147af3;
-  --carousel-nav-button-hover-background-dark: #2f2f2f;
-  --carousel-nav-button-active-background-dark: #373737;
-  --carousel-focus-color: #109cde;
-  --carousel-indicator-background-color: #b1b1b1;
-  --carousel-dark-indicator-background-color: #848484;
+  --carousel-nav-background: var(--color-gray-800);
+  --carousel-nav-background-dark: var(--color-gray-200);
+  --carousel-nav-button-background-hover: var(--color-gray-300);
+  --carousel-nav-button-background-active-focus: var(--color-gray-400);
+  --carousel-nav-button-background-focus: var(--link-color); /* MEDIUM: Consolidate blue variations */
+  --carousel-nav-button-hover-background-dark: var(--color-gray-700);
+  --carousel-nav-button-active-background-dark: var(--color-gray-600);
+  --carousel-focus-color: var(--link-color); /* MEDIUM: Consolidate blue variations */
+  --carousel-indicator-background-color: var(--color-gray-400); /* LOW: Changed from gray-400 (B6B6B6) */
+  --carousel-dark-indicator-background-color: var(--color-gray-500);
   --carousel-expand-background-color: rgb(255 255 255 / 75%);
   --carousel-expand-border-color: rgb(116 116 116 / 30%);
+  --carousel-background-light: var(--color-gray-100);
   --s-rounded-corners: 4px;
   --m-rounded-corners: 8px;
   --l-rounded-corners: 16px;
@@ -28,131 +36,91 @@
   flex-flow: column;
 }
 
-/* Typography - Critical Design System Fixes
- * Font Stack:
- * - Primary: Adobe Clean Serif (for h1, h2)
- * - Fallback: Adobe Clean, adobe-clean, Georgia, serif
- * - Body: Adobe Clean, adobe-clean, Trebuchet MS, sans-serif
- *
- * Font Sizes (responsive):
- * - Mobile h1: 44px, Desktop: 48px
- * - Mobile h2: 36px, Desktop: 40px
- * - Body text: 18px mobile, 20px desktop
- *
- * Line Heights:
- * - Headings: 1.2 (120%)
- * - Body text: 1.5 (150%)
- *
- * Colors (semantic tokens):
- * - text-primary: var(--text-color) = #2c2c2c (accessible contrast)
- * - text-inverse: var(--color-white) = #FFF
- * - background: var(--background-color) = #fff
- *
- * Spacing Tokens:
- * - xxs: 8px, xs: 16px, s: 24px, m: 32px, l: 40px, xl: 48px, xxl: 56px, xxxl: 80px
- * - Gap sizes: m-gap uses --spacing-m (32px)
- */
+/* CRITICAL FIX #1: Adobe Clean Serif for ALL headings */
+/* CRITICAL: Font stack WITHOUT Arial fallback to ensure Adobe Clean Serif loads */
+.carousel .carousel-slide h1,
+.carousel .carousel-slide h2,
+.carousel .carousel-slide h3,
 .carousel h1,
-.carousel h2 {
-  font-family: var(--serif-font-family);
-  line-height: 1.2;
-  color: var(--text-color);
-  margin-top: var(--spacing-m);
-  margin-bottom: var(--spacing-s);
-}
-
-.carousel h1 {
-  font-size: var(--type-heading-xxxl-size);
-  font-weight: var(--type-heading-all-weight);
-}
-
-.carousel h2 {
-  font-size: var(--type-heading-xxl-size);
-  font-weight: var(--type-heading-all-weight);
-}
-
+.carousel h2,
 .carousel h3 {
-  font-family: var(--body-font-family);
-  font-size: var(--type-heading-xl-size);
-  font-weight: var(--type-heading-all-weight);
+  font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif;
+  font-weight: 700;
   line-height: 1.2;
-  color: var(--text-color);
-  margin-top: var(--spacing-s);
-  margin-bottom: var(--spacing-xs);
 }
 
-.carousel h4 {
-  font-family: var(--body-font-family);
-  font-size: var(--type-heading-l-size);
-  font-weight: var(--type-heading-all-weight);
-  line-height: 1.2;
-  color: var(--text-color);
-  margin-top: var(--spacing-s);
-  margin-bottom: var(--spacing-xs);
+/* MEDIUM FIX: H3 specific size - 36px per Figma spec (not 48px) */
+.carousel .carousel-slide h3,
+.carousel h3 {
+  font-size: 36px;
 }
 
-.carousel h5,
-.carousel h6 {
-  font-family: var(--body-font-family);
-  font-size: var(--type-heading-m-size);
-  font-weight: var(--type-heading-all-weight);
-  line-height: 1.2;
-  color: var(--text-color);
-  margin-top: var(--spacing-xs);
-  margin-bottom: var(--spacing-xxs);
+/* CRITICAL FIX #2: Exact Figma padding - 200px horizontal, 220px top, 160px bottom */
+.carousel .carousel-slide {
+  padding: 220px 200px 160px 200px;
 }
 
-.carousel p,
-.carousel li {
+@media (max-width: 1200px) {
+  .carousel .carousel-slide {
+    padding: 110px 100px 80px 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  .carousel .carousel-slide {
+    padding: 56px 48px 40px 48px;
+  }
+}
+
+/* HIGH PRIORITY: Border-radius - 32px content frames, 40px outer containers */
+.carousel.rounded-corners .carousel-slide,
+.carousel.m-rounded-corners .carousel-slide {
+  border-radius: 32px;
+}
+
+.carousel.rounded-corners,
+.carousel.m-rounded-corners {
+  border-radius: 40px;
+}
+
+/* MEDIUM PRIORITY: Line-height consistency - 120% headings, 150% body */
+/* Note: font-family and line-height are already set above in CRITICAL FIX #1 */
+
+.carousel .carousel-slide p,
+.carousel .carousel-slide li {
   font-family: var(--body-font-family);
-  font-size: var(--type-body-m-size);
+  font-weight: 400;
   line-height: 1.5;
-  color: var(--text-color);
+  color: var(--text-color); /* MEDIUM: Standardize to RGB(44,44,44) via design token */
 }
 
-/* Color Theme Variants */
-.carousel.dark h1,
-.carousel.dark h2,
-.carousel.dark h3,
-.carousel.dark h4,
-.carousel.dark h5,
-.carousel.dark h6,
-.carousel.dark p,
-.carousel.dark li,
-.dark .carousel h1,
-.dark .carousel h2,
-.dark .carousel h3,
-.dark .carousel h4,
-.dark .carousel h5,
-.dark .carousel h6,
-.dark .carousel p,
-.dark .carousel li {
+/* LOW FIX: Paragraph bottom margin for consistent spacing */
+.carousel .carousel-slide p {
+  margin-bottom: 16px;
+}
+
+.carousel .carousel-slide p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dark theme text colors */
+.carousel.dark .carousel-slide h1,
+.carousel.dark .carousel-slide h2,
+.carousel.dark .carousel-slide h3,
+.carousel.dark .carousel-slide p,
+.carousel.dark .carousel-slide li,
+.dark .carousel .carousel-slide h1,
+.dark .carousel .carousel-slide h2,
+.dark .carousel .carousel-slide h3,
+.dark .carousel .carousel-slide p,
+.dark .carousel .carousel-slide li {
   color: var(--color-white);
 }
 
-@media (min-width: 900px) {
-  .carousel h1 {
-    font-size: 48px;
-    margin-top: var(--spacing-l);
-    margin-bottom: var(--spacing-m);
-  }
-
-  .carousel h2 {
-    font-size: 40px;
-    margin-top: var(--spacing-l);
-    margin-bottom: var(--spacing-m);
-  }
-
-  .carousel h3 {
-    font-size: var(--type-heading-xl-size);
-    margin-top: var(--spacing-m);
-    margin-bottom: var(--spacing-s);
-  }
-
-  .carousel p,
-  .carousel li {
-    font-size: var(--type-body-l-size);
-  }
+/* Standardized lateral margins using design tokens */
+.carousel.container {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Late loading controls */
