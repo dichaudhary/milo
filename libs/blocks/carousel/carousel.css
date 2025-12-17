@@ -28,6 +28,133 @@
   flex-flow: column;
 }
 
+/* Typography - Critical Design System Fixes
+ * Font Stack:
+ * - Primary: Adobe Clean Serif (for h1, h2)
+ * - Fallback: Adobe Clean, adobe-clean, Georgia, serif
+ * - Body: Adobe Clean, adobe-clean, Trebuchet MS, sans-serif
+ *
+ * Font Sizes (responsive):
+ * - Mobile h1: 44px, Desktop: 48px
+ * - Mobile h2: 36px, Desktop: 40px
+ * - Body text: 18px mobile, 20px desktop
+ *
+ * Line Heights:
+ * - Headings: 1.2 (120%)
+ * - Body text: 1.5 (150%)
+ *
+ * Colors (semantic tokens):
+ * - text-primary: var(--text-color) = #2c2c2c (accessible contrast)
+ * - text-inverse: var(--color-white) = #FFF
+ * - background: var(--background-color) = #fff
+ *
+ * Spacing Tokens:
+ * - xxs: 8px, xs: 16px, s: 24px, m: 32px, l: 40px, xl: 48px, xxl: 56px, xxxl: 80px
+ * - Gap sizes: m-gap uses --spacing-m (32px)
+ */
+.carousel h1,
+.carousel h2 {
+  font-family: var(--serif-font-family);
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
+}
+
+.carousel h1 {
+  font-size: var(--type-heading-xxxl-size);
+  font-weight: var(--type-heading-all-weight);
+}
+
+.carousel h2 {
+  font-size: var(--type-heading-xxl-size);
+  font-weight: var(--type-heading-all-weight);
+}
+
+.carousel h3 {
+  font-family: var(--body-font-family);
+  font-size: var(--type-heading-xl-size);
+  font-weight: var(--type-heading-all-weight);
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-top: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
+}
+
+.carousel h4 {
+  font-family: var(--body-font-family);
+  font-size: var(--type-heading-l-size);
+  font-weight: var(--type-heading-all-weight);
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-top: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
+}
+
+.carousel h5,
+.carousel h6 {
+  font-family: var(--body-font-family);
+  font-size: var(--type-heading-m-size);
+  font-weight: var(--type-heading-all-weight);
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xxs);
+}
+
+.carousel p,
+.carousel li {
+  font-family: var(--body-font-family);
+  font-size: var(--type-body-m-size);
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+/* Color Theme Variants */
+.carousel.dark h1,
+.carousel.dark h2,
+.carousel.dark h3,
+.carousel.dark h4,
+.carousel.dark h5,
+.carousel.dark h6,
+.carousel.dark p,
+.carousel.dark li,
+.dark .carousel h1,
+.dark .carousel h2,
+.dark .carousel h3,
+.dark .carousel h4,
+.dark .carousel h5,
+.dark .carousel h6,
+.dark .carousel p,
+.dark .carousel li {
+  color: var(--color-white);
+}
+
+@media (min-width: 900px) {
+  .carousel h1 {
+    font-size: 48px;
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-m);
+  }
+
+  .carousel h2 {
+    font-size: 40px;
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-m);
+  }
+
+  .carousel h3 {
+    font-size: var(--type-heading-xl-size);
+    margin-top: var(--spacing-m);
+    margin-bottom: var(--spacing-s);
+  }
+
+  .carousel p,
+  .carousel li {
+    font-size: var(--type-body-l-size);
+  }
+}
+
 /* Late loading controls */
 .carousel .is-delayed {
   visibility: hidden;
