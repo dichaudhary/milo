@@ -3,47 +3,90 @@
      CAROUSEL DESIGN SYSTEM - Complete Token Integration
      ========================================================================
 
-   * CONTAINER WIDTH & SCALE FACTORS (DOCUMENTED):
-   * ================================================
-   * Production Implementation Scale: 1:1 (no scaling)
+   * CRITICAL: FIGMA TO IMPLEMENTATION SCALE CONVERSION
+   * ===================================================
+   * Figma Design Scale: 6.67x (all Figma measurements are 6.67x larger)
+   * Implementation Scale: 1:1 (actual CSS pixel values)
+   *
+   * SCALE CONVERSION FORMULA:
+   * Implementation Value = Figma Value ÷ 6.67
+   *
+   * Examples:
+   * - Figma 240px heading → 240 ÷ 6.67 = 36px implementation
+   * - Figma 480px heading → 480 ÷ 6.67 = 72px implementation
+   * - Figma 80px gap → 80 ÷ 6.67 = 12px implementation
+   * - Figma 200px padding → 200 ÷ 6.67 = 30px implementation
+   * - Figma 40px border-radius → 40 ÷ 6.67 = 6px implementation
+   *
+   * WHY 6.67x SCALE?
+   * Figma artboards use 6.67x scale for detailed design work and precision.
+   * All pixel measurements in Figma must be divided by 6.67 for production CSS.
+   *
+   * CONTAINER WIDTH & SCALE FACTORS:
    * - Container: .container class limits to 1200px max-width
    * - Viewport: Scales responsively from 320px (mobile) to 1920px+ (desktop)
    * - Grid: 83.4vw for hinting variants
    *
-   * Figma Design Scale Factor: Variable (depends on artboard)
-   * - If designs appear 2.5x-5x larger, this is for detailed work
-   * - Developers should implement at specified pixel values (1:1)
-   * - Example: Figma shows 200px → Implement as 200px (not scaled)
-   *
-   * TYPOGRAPHY SCALE (from design system):
-   * =======================================
-   * - Headings: --type-heading-* tokens with responsive breakpoints
-   * - Body text: --type-body-* tokens (18px mobile, 20px desktop)
-   * - CTA buttons: 17px standardized
-   * - Font multiplier: 1.0 (no additional scaling)
+   * TYPOGRAPHY SCALE (from design system with Figma conversion):
+   * ==============================================================
+   * Figma Sizes → Implementation (÷ 6.67):
+   * - H1: Figma 480px → 72px desktop (--type-heading-xxxl)
+   * - H2: Figma 373px → 56px desktop (--type-heading-xxl)
+   * - H3: Figma 240px → 36px desktop (--type-heading-xl)
+   * - Body: Figma 133px → 20px desktop, Figma 120px → 18px mobile
+   * - CTA buttons: Figma 113px → 17px standardized
+   * - Font multiplier: 1.0 (no additional scaling beyond Figma conversion)
    *
    * COLOR SYSTEM:
    * =============
+   * Text Colors:
    * - Text on light: var(--color-black) headings, var(--text-color) body RGB(44,44,44)
    * - Text on dark: var(--color-white) for all text
-   * - Backgrounds: var(--color-gray-*) systematic palette
-   * - Interactive: var(--link-color) for all blue elements
+   * - Interactive: var(--link-color) for all blue elements RGB(39,77,234)
    * - CTA Primary: var(--link-color) background, white text
    * - CTA Secondary: outline style with var(--link-color) text
    *
-   * BORDER RADIUS (STANDARDIZED - 0/8/16/32/100%):
-   * ===============================================
+   * MEDIUM PRIORITY FIX: Carousel Slide Background Palette (brand-approved):
+   * - Default: transparent (inherits from section)
+   * - Light variant: var(--color-gray-100) = #F8F8F8 RGB(248,248,248)
+   * - Dark variant: var(--color-gray-900) = #1E1E1E RGB(30,30,30)
+   * - Blue accent: var(--color-blue-100) = #E8F3FF RGB(232,243,255)
+   * - Gray medium: var(--color-gray-200) = #E6E6E6 RGB(230,230,230)
+   * - White: var(--color-white) = #FFFFFF RGB(255,255,255)
+   * Limit: Use only these 5-7 brand-approved colors for consistency
+   *
+   * LOW PRIORITY FIX: Navigation Button Colors (documented):
+   * - Container background: var(--carousel-nav-background) = RGB(36,36,36) = #242424
+   * - Button background: var(--carousel-nav-background-dark) = RGB(230,230,230) = #E6E6E6
+   * - Button hover: var(--carousel-nav-button-background-hover) = RGB(219,219,219) = #DBDBDB
+   * - Button active: var(--carousel-nav-button-background-active-focus) = RGB(182,182,182) = #B6B6B6
+   * - Focus ring: var(--carousel-focus-color) = var(--link-color) = RGB(39,77,234)
+   *
+   * BORDER RADIUS (STANDARDIZED with Figma conversion):
+   * ====================================================
+   * Figma Values → Implementation (÷ 6.67):
    * - none: 0px (square corners)
-   * - medium: 8px (standard cards, buttons)
-   * - large: 16px (large frames - DEPRECATED, use x-large)
-   * - x-large: 32px (PRIMARY - matches Figma content frames)
+   * - small: Figma 27px → 4px (indicators, small elements)
+   * - medium: Figma 53px → 8px (standard cards, buttons)
+   * - container: Figma 40px → 6px (outer carousel container - CRITICAL FIX)
+   * - content: Figma 32px → 5px (content frames - CRITICAL FIX)
    * - full: 100% (circular/pill elements)
    *
-   * SPACING (using design system tokens):
-   * =====================================
-   * - carousel-margin-default: var(--spacing-m) = 32px
-   * - carousel-margin-bottom: var(--spacing-l) = 40px
-   * - All padding/margins use --spacing-* tokens
+   * IMPLEMENTATION NOTE:
+   * - Use 6px for .carousel.container (outer wrapper)
+   * - Use 5px for .carousel-slide (content frames)
+   * - Previous 32px value was incorrect (not scaled from Figma)
+   *
+   * SPACING (using design system tokens with Figma conversion):
+   * =============================================================
+   * Figma Values → Implementation (÷ 6.67):
+   * - Slide padding L/R: Figma 200px → 30px implementation (MEDIUM PRIORITY FIX)
+   * - Slide padding top: Figma 220px → 33px implementation (MEDIUM PRIORITY FIX)
+   * - Slide padding bottom: Figma 160px → 24px implementation (MEDIUM PRIORITY FIX)
+   * - Slides gap: Figma 80px → 12px implementation (MEDIUM PRIORITY FIX)
+   * - Container margin: Figma 0px 667px 213px → 0 100px 32px (LOW PRIORITY FIX)
+   * - Carousel margin-default: var(--spacing-m) = 32px
+   * - Carousel margin-bottom: var(--spacing-l) = 40px
    */
 
   /* Navigation button dimensions (design system standardized) */
@@ -72,30 +115,39 @@
   --carousel-background-light: var(--color-gray-100);
   --carousel-background-overlay: rgb(0 0 0 / 50%);
 
-  /* Border radius tokens (STANDARDIZED - updated system) */
+  /* Border radius tokens (CRITICAL FIX: Scaled from Figma ÷ 6.67) */
   --carousel-rounded-none: 0px;       /* No border radius */
-  --carousel-rounded-small: 4px;      /* Small elements, indicators */
-  --carousel-rounded-medium: 8px;     /* Standard cards, buttons */
-  --carousel-rounded-large: 16px;     /* Large content frames (DEPRECATED: use x-large) */
-  --carousel-rounded-xlarge: 32px;    /* X-Large content frames (PRIMARY - matches Figma) */
+  --carousel-rounded-small: 4px;      /* Figma 27px → 4px (indicators) */
+  --carousel-rounded-medium: 8px;     /* Figma 53px → 8px (buttons) */
+  --carousel-rounded-container: 6px;  /* CRITICAL: Figma 40px → 6px (outer container) */
+  --carousel-rounded-content: 5px;    /* CRITICAL: Figma 32px → 5px (content frames/slides) */
   --carousel-rounded-full: 100%;      /* Circular elements (pills, avatars) */
 
-  /* Legacy aliases for backwards compatibility */
-  --s-rounded-corners: var(--carousel-rounded-small);    /* 4px */
-  --m-rounded-corners: var(--carousel-rounded-medium);   /* 8px */
-  --l-rounded-corners: var(--carousel-rounded-xlarge);   /* 32px (UPDATED from 16px) */
-  --full-rounded-corners: var(--carousel-rounded-full);  /* 100% */
+  /* Legacy aliases (UPDATED with correct Figma scale) */
+  --s-rounded-corners: var(--carousel-rounded-small);      /* 4px */
+  --m-rounded-corners: var(--carousel-rounded-medium);     /* 8px */
+  --l-rounded-corners: var(--carousel-rounded-content);    /* 5px (CRITICAL FIX: was 32px) */
+  --full-rounded-corners: var(--carousel-rounded-full);    /* 100% */
 
   /* Spacing tokens (from design system) */
   --carousel-margin-default: var(--spacing-m); /* 32px */
   --carousel-margin-bottom: var(--spacing-l); /* 40px */
   --carousel-margin-container: auto;
 
-  /* DOCUMENTED: Carousel slides gap spacing - var(--spacing-m) = 32px
+  /* MEDIUM PRIORITY FIX: Carousel slides gap - Scaled from Figma
+   * Figma 80px → 12px implementation (÷ 6.67)
    * Applied to .carousel[class*='show-'].m-gap .carousel-slides
    * Used for multi-slide carousel variants with visible gaps between slides
-   * Ensures consistent spacing across all carousel show-X variants
+   * Previous value: var(--spacing-m) = 32px (not scaled from Figma)
    */
+  --carousel-slides-gap: 12px; /* MEDIUM PRIORITY FIX: Scaled from Figma 80px */
+
+  /* LOW PRIORITY FIX: Carousel container margins - Scaled from Figma
+   * Figma 0px 667px 213px → 0 100px 32px (÷ 6.67)
+   * Top: 0, Left/Right: 100px, Bottom: 32px
+   */
+  --carousel-container-margin-vertical: 0 0 32px 0;
+  --carousel-container-margin-horizontal: 0 100px;
 
   /* Internal calculation variables */
   --indicator-multiplier: 0;
@@ -126,7 +178,10 @@
  * Body text: 20px desktop, 18px mobile (design system body-l/body-m)
  */
 
-/* Base heading styles - Adobe Clean Serif font family */
+/* Base heading styles - Adobe Clean Serif font family
+ * LOW PRIORITY FIX: Line-height standardized to 120% (1.2) for all carousel titles
+ * This matches Figma specifications and ensures consistent visual rhythm
+ */
 .carousel .carousel-slide h1,
 .carousel .carousel-slide h2,
 .carousel .carousel-slide h3,
@@ -135,7 +190,7 @@
 .carousel h3 {
   font-family: 'Adobe Clean Serif', 'adobe-clean-serif', 'Source Serif Pro', Georgia, serif;
   font-weight: var(--type-heading-all-weight); /* 700 from design system */
-  line-height: var(--type-heading-base-lh); /* 1.2 from design system */
+  line-height: 1.2 !important; /* LOW PRIORITY FIX: Standardized 120% (was var(--type-heading-base-lh)) */
 }
 
 /* H1 Typography - Using design system tokens with responsive scaling */
@@ -224,32 +279,42 @@ main h3.heading-l {
   line-height: var(--type-heading-base-lh);
 }
 
-/* CRITICAL FIX #2: Exact Figma padding - 200px horizontal, 220px top, 160px bottom */
+/* MEDIUM PRIORITY FIX: Scaled Figma padding (÷ 6.67)
+ * Desktop (1200px+):
+ *   - Figma 200px horizontal → 30px implementation
+ *   - Figma 220px top → 33px implementation
+ *   - Figma 160px bottom → 24px implementation
+ * Tablet (900-1200px): ~50% scale (15px/16.5px/12px)
+ * Mobile (<900px): ~25% scale (8px/8px/6px)
+ */
 .carousel .carousel-slide {
-  padding: 220px 200px 160px 200px;
+  padding: 8px 8px 6px 8px; /* Mobile: ~25% scale */
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 900px) {
   .carousel .carousel-slide {
-    padding: 110px 100px 80px 100px;
+    padding: 16px 15px 12px 15px; /* Tablet: ~50% scale */
   }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 1200px) {
   .carousel .carousel-slide {
-    padding: 56px 48px 40px 48px;
+    padding: 33px 30px 24px 30px; /* Desktop: Figma scaled (÷ 6.67) */
   }
 }
 
-/* HIGH PRIORITY: Border-radius - 32px content frames, 40px outer containers */
+/* CRITICAL FIX: Border-radius scaled from Figma (÷ 6.67)
+ * - Content frames (.carousel-slide): Figma 32px → 5px implementation
+ * - Outer containers (.carousel): Figma 40px → 6px implementation
+ */
 .carousel.rounded-corners .carousel-slide,
 .carousel.m-rounded-corners .carousel-slide {
-  border-radius: 32px;
+  border-radius: var(--carousel-rounded-content); /* 5px - scaled from Figma 32px */
 }
 
 .carousel.rounded-corners,
 .carousel.m-rounded-corners {
-  border-radius: 40px;
+  border-radius: var(--carousel-rounded-container); /* 6px - scaled from Figma 40px */
 }
 
 /* ========================================================================
@@ -1253,20 +1318,22 @@ html[dir="rtl"] .carousel .move-indicators {
     --slides: 6;
   }
 
+  /* MEDIUM PRIORITY FIX: Use scaled gap (12px) in flex-basis calculation */
   .carousel[class*='show-'].m-gap .carousel-slide {
-    flex-basis: calc((100% / var(--slides)) - round(up, (((var(--slides) - 1) / var(--slides)) * var(--spacing-m)), 1px));
+    flex-basis: calc((100% / var(--slides)) - round(up, (((var(--slides) - 1) / var(--slides)) * var(--carousel-slides-gap)), 1px));
   }
 
   .carousel[class*='show-'] .carousel-controls { display: none; }
 
+  /* MEDIUM PRIORITY FIX: Gap scaled from Figma 80px → 12px */
   .carousel.m-gap .carousel-slides {
-    gap: var(--spacing-m);
+    gap: var(--carousel-slides-gap); /* 12px - scaled from Figma (was 32px) */
   }
 
   /* Corrects translateX when using gap */
   .carousel.m-gap .carousel-slides.is-ready,
   .carousel.m-gap .carousel-slides.is-ready.is-reversing {
-    transform: translateX(calc(var(--spacing-m) * -1));
+    transform: translateX(calc(var(--carousel-slides-gap) * -1));
   }
 
   .carousel.show-2.m-gap .carousel-slides.is-ready,
